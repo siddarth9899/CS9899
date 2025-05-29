@@ -1,21 +1,37 @@
 pipeline {
     agent any
+
+    environment {
+        // Define environment variables here if needed
+        MY_ENV = "value"
+    }
+
     stages {
-        stage('clean_workspace') {
+        stage('Checkout') {
             steps {
-                // You can choose to clean workspace before build as follows
-                cleanWs deleteDirs: true, notFailBuild: true
-                checkout scm
-               
+                git 'https://github.com/siddarth9899/CS9899'
             }
         }
-        
-        stage ('Build') {
-            steps { 
-                    sh 'mvn clean install -DskipTests=true '                                    
-               }
-         }
-        
-                   
-    }
+
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                // Add your build commands here
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Add your test commands here
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                // Add your deploy steps here
+            }
+        }
+    }
 }
